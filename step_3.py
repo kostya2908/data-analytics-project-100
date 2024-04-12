@@ -49,5 +49,5 @@ regs_grouped.set_index(['date_group', 'platform'], inplace=True)
 result = result.join(regs_grouped, on=['date_group', 'platform'])
 result['conversion'] = 100 * result['registrations'] / result['visits']
 print(result)
-result.to_json('/home/kostya/data-analytics-project-100/conversion.json')
+result.to_json('/home/kostya/data-analytics-project-100/conversion.json', orient='table')
 
