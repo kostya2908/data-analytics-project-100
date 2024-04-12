@@ -28,8 +28,9 @@ visits = visits.sort_values(by='datetime', ascending=True).reset_index(drop=True
 
 result = visits.groupby(['datetime', 'platform'], as_index=False).agg(visits=('visit_id', 'count'))
 result.rename(columns={'datetime': 'date_group'}, inplace=True)
+result.set_index(['date_group', 'platform'], inplace=True)
 
-result['join_id'] = result.groupby(['date_group', 'platform']).ngroup()
+#result['join_id'] = result.groupby(['date_group', 'platform']).ngroup()
 #print(result)
 
 
@@ -38,12 +39,14 @@ r_r = requests.get('https://data-charts-api.hexlet.app/registrations?begin=2023-
 regs = pd.DataFrame(r_r.json())
 regs['datetime'] = pd.to_datetime(regs['datetime']).dt.date
 regs_grouped = regs.groupby(['datetime', 'platform'], as_index=False).agg(registrations=('email', 'count'))
-regs_grouped['join_id'] = regs_grouped.groupby(['datetime', 'platform']).ngroup()
+regs_grouped.rename(columns={'datetime': 'date_group'}, inplace=True)
+regs_grouped.set_index(['date_group', 'platform'], inplace=True)
+#regs_grouped['join_id'] = regs_grouped.groupby(['datetime', 'platform']).ngroup()
 #print(regs_grouped)
+#result['registrations'] = result['join_id'].map(regs_grouped.set_index('join_id')['registrations'])
+#result.drop('join_id', axis=1, inplace=True)
 
-
-result['registrations'] = result['join_id'].map(regs_grouped.set_index('join_id')['registrations'])
-result.drop('join_id', axis=1, inplace=True)
+result = result.join(regs_grouped, on=['date_group', 'platform'])
 result['conversion'] = 100 * result['registrations'] / result['visits']
 print(result)
 result.to_json('/home/kostya/data-analytics-project-100/conversion.json')
