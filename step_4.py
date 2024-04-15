@@ -17,6 +17,10 @@ print(data)
 
 result_4 = conversion.join(data[['cost', 'utm_campaign']], on='date_group')
 print(result_4)
+result_4.reset_index(inplace=True)
+print(result_4)
+result_4.date_group = pd.to_datetime(result_4.date_group).dt.strftime('%Y-%m-%d')
+print(result_4)
 result_4.to_json('/home/kostya/data-analytics-project-100/ads.json')
 
 
