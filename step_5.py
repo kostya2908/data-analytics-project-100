@@ -14,7 +14,7 @@ fig, pic = plt.subplots(figsize=(18, 6))
 pict_01_bars = df.groupby('date_group').agg(visits=('visits', 'sum')).reset_index()
 
 #Adding rolling value:
-pict_01_bars['rolling'] = pict_01_bars[['visits']].rolling(30, 1).mean().round(0)
+pict_01_bars['rolling'] = pict_01_bars[['visits']].rolling(30, 1, center=True).mean().round(0)
 print(pict_01_bars)
 
 
