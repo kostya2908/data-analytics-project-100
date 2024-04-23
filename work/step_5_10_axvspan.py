@@ -124,7 +124,7 @@ for i, row in axvs_4_fig.iterrows():
                   row.iloc[1],
                   edgecolor='white',
                   facecolor=axvs_4_fig.color[i],
-                  label=axvs_4_fig.utm_source[i].title() if i in [0, 1, 4] else '')
+                  label=axvs_4_fig.utm_source[i].title() + ' ADS' if i in [0, 1, 4] else '')
 #-------------------------------------------------------------------------------------------
 
 #Registrations:
@@ -162,7 +162,7 @@ for i, row in axvs_4_fig.iterrows():
                   row.iloc[1],
                   edgecolor='white',
                   facecolor=axvs_4_fig.color[i],
-                  label=axvs_4_fig.utm_source[i].title() if i in [0, 1, 4] else '')
+                  label=axvs_4_fig.utm_source[i].title() + ' ADS' if i in [0, 1, 4] else '')
 #-------------------------------------------------------------------------------------------
 
 #Appearance:
